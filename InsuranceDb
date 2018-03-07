@@ -1,0 +1,224 @@
+CREATE DATABASE  IF NOT EXISTS `insurance` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `insurance`;
+-- MySQL dump 10.13  Distrib 5.1.40, for Win32 (ia32)
+--
+-- Host: localhost    Database: insurance
+-- ------------------------------------------------------
+-- Server version	5.5.25
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `all_insurance`
+--
+
+DROP TABLE IF EXISTS `all_insurance`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `all_insurance` (
+  `all_insurance_id` int(11) NOT NULL AUTO_INCREMENT,
+  `insurance_id` int(11) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL,
+  `years` int(11) DEFAULT NULL,
+  `cost` varchar(45) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`all_insurance_id`),
+  KEY `fk8` (`insurance_id`),
+  KEY `fk9` (`type_id`),
+  KEY `fk7` (`user_id`),
+  CONSTRAINT `fk7` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk8` FOREIGN KEY (`insurance_id`) REFERENCES `abz_insurance` (`insurance_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk9` FOREIGN KEY (`type_id`) REFERENCES `insurance_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `all_insurance`
+--
+
+LOCK TABLES `all_insurance` WRITE;
+/*!40000 ALTER TABLE `all_insurance` DISABLE KEYS */;
+INSERT INTO `all_insurance` VALUES (1,1,1,1,'11500.0','2018-01-24','active',2),(2,2,3,1,'161000.0','2018-01-24','active',3),(3,2,4,2,'100000.0','2018-01-25','active',10),(4,2,4,2,'160000.0','2018-01-25','deactive',2),(5,2,3,2,'138480.0','2018-01-29','active',2),(6,1,2,1,'16000.0','2018-01-29','deactive',2),(7,1,1,1,'11500.0','2018-02-14','active',2),(8,1,1,1,'50000.0','2018-02-16','active',12),(9,1,2,2,'555555.0','2018-02-22','active',12),(10,1,2,2,'55555.0','2018-02-22','active',12),(11,1,2,2,'55555.0','2018-02-22','deactive',12),(12,1,2,2,'55555.0','2018-02-22','deactive',12),(13,1,2,2,'55555.0','2018-02-22','active',12),(14,2,4,2,'800000.0','2018-02-22','active',12),(15,1,2,2,'50000.0','2018-02-22','active',12),(16,1,2,1,'90000.0','2018-02-22','active',12),(17,1,2,1,'90000.0','2018-02-22','active',13),(18,1,2,2,'70000.0','2018-02-22','active',13),(19,2,4,2,'700000.0','2018-02-26','active',19);
+/*!40000 ALTER TABLE `all_insurance` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `previlages`
+--
+
+DROP TABLE IF EXISTS `previlages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `previlages` (
+  `previlages_id` int(11) NOT NULL AUTO_INCREMENT,
+  `previlages_name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`previlages_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `previlages`
+--
+
+LOCK TABLES `previlages` WRITE;
+/*!40000 ALTER TABLE `previlages` DISABLE KEYS */;
+INSERT INTO `previlages` VALUES (1,'Add Customer'),(2,'View All Customers'),(3,'View Particular customer'),(4,'Delete customer'),(5,'Change Password'),(6,'View All Insurance'),(7,'View Particular Insurance'),(8,'Refunding'),(9,'Change MobileNumber'),(10,'Change Address'),(11,'Insurnce Policy'),(12,'View Active Insurances'),(13,'LogOut');
+/*!40000 ALTER TABLE `previlages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_previlages`
+--
+
+DROP TABLE IF EXISTS `user_previlages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_previlages` (
+  `role_id` int(11) DEFAULT NULL,
+  `Previlages_id` int(11) DEFAULT NULL,
+  KEY `fk1` (`Previlages_id`),
+  KEY `fk` (`role_id`),
+  CONSTRAINT `fk` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk1` FOREIGN KEY (`Previlages_id`) REFERENCES `previlages` (`previlages_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_previlages`
+--
+
+LOCK TABLES `user_previlages` WRITE;
+/*!40000 ALTER TABLE `user_previlages` DISABLE KEYS */;
+INSERT INTO `user_previlages` VALUES (1,1),(1,2),(1,3),(1,4),(1,6),(1,7),(1,12),(1,13),(2,5),(2,8),(2,9),(2,10),(2,11),(2,13);
+/*!40000 ALTER TABLE `user_previlages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `insurance_type`
+--
+
+DROP TABLE IF EXISTS `insurance_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `insurance_type` (
+  `type_id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(45) DEFAULT NULL,
+  `insurance_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`type_id`),
+  KEY `fff` (`insurance_id`),
+  CONSTRAINT `fff` FOREIGN KEY (`insurance_id`) REFERENCES `abz_insurance` (`insurance_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `insurance_type`
+--
+
+LOCK TABLES `insurance_type` WRITE;
+/*!40000 ALTER TABLE `insurance_type` DISABLE KEYS */;
+INSERT INTO `insurance_type` VALUES (1,'Commercial',1),(2,'Personal',1),(3,'Frame',2),(4,'Brick',2);
+/*!40000 ALTER TABLE `insurance_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roles` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'admin'),(2,'user');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `abz_insurance`
+--
+
+DROP TABLE IF EXISTS `abz_insurance`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `abz_insurance` (
+  `insurance_id` int(11) NOT NULL AUTO_INCREMENT,
+  `insurance_type` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`insurance_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `abz_insurance`
+--
+
+LOCK TABLES `abz_insurance` WRITE;
+/*!40000 ALTER TABLE `abz_insurance` DISABLE KEYS */;
+INSERT INTO `abz_insurance` VALUES (1,'Vehicle Insurance'),(2,'Home Insurance');
+/*!40000 ALTER TABLE `abz_insurance` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `mobile_number` bigint(20) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `question` varchar(45) DEFAULT NULL,
+  `answer` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  KEY `fk2` (`role_id`),
+  CONSTRAINT `fk2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'mayuresh','mayuresh@gmail.com','mayuresh123',1,9654213784,'madhapur',NULL,NULL),(2,'charan1','charan@gmail.com','charan123',2,7777777777,'gachibowli',NULL,NULL),(3,'priyatham','priyatham@gmail.com','priyatham123',2,9324578514,'kukatpaly',NULL,NULL),(10,'gnaneshwar','gnaneshwar@gmail.com','gnaneshwar123',2,9875421302,'jntu',NULL,NULL),(11,'Roopa','ydhjxn','12345',2,8767897654,'Hyd',NULL,NULL),(12,'jim','jim@gmail.com','jim123',2,9854632175,'hyd',NULL,NULL),(13,'ram','charanadabala050@gmail.com','ram123',2,9564782546,'hyderabad','petname','doggy'),(14,'charan','charanadabala050@gmail.com','charan',2,9032467808,'hyderabad','native','palakol'),(15,NULL,'charanadabala050@gmail.com',NULL,2,7013365787,NULL,NULL,'jimmy'),(16,'gopal','charanadabala050@gmail.com','gopal123',2,9554555447,'hyderabad','petname','puppy'),(17,'jsaxv','','bsbxbsxgg',2,9546782845,'hhscgv','petname','sgx'),(18,'hsnx','','hssbnbcn z',2,9255252545,'hsbn','petname','jcsn'),(19,'Roopa','roopacharym@gmail.com','roopa123',2,8945754875,'hyderabad','petname','jimmy');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-02-27 10:47:58
